@@ -16,7 +16,6 @@ func main() {
 	}
 
 	asn, _ := ui.Ask("What ASN?", &input.Options{
-		Default:  "51391",
 		Required: true,
 		Loop:     true,
 	})
