@@ -41,45 +41,44 @@ func main() {
 
 	for _, ixId := range ixList {
 		ix, err := api.GetNetworkInternetExchangeLANByID(ixId)
-		if err == nil {
-			if strings.Contains(strings.ToLower(ix.Name), strings.ToLower(wantedIx)) {
-				fmt.Println("Making session for", as.Name, "on", ix.Name)
-				if ix.IPAddr4 != "" {
-					fmt.Println(ix.Name, "IPv4")
-					fmt.Printf("\n\n")
-					fmt.Printf("      %d:\n", as.ASN)
-					fmt.Printf("        description: %s\n", as.Name)
-					fmt.Printf("        neighbor: %s\n", ix.IPAddr4)
-					fmt.Printf("        source_address:\n")
-					fmt.Printf("        prepend: 0\n")
-					fmt.Printf("        prefix_limit: %d\n", as.InfoPrefixes4)
-					fmt.Printf("        limit_exceeded_action: disable\n")
-					if password != "" {
-						fmt.Printf("        password: %s\n", password)
-					}
-					fmt.Printf("\n")
-				}
-
-				if ix.IPAddr6 != "" {
-					fmt.Println(ix.Name, "IPv6")
-					fmt.Printf("\n\n")
-					fmt.Printf("      %d:\n", as.ASN)
-					fmt.Printf("        description: %s\n", as.Name)
-					fmt.Printf("        neighbor: %s\n", ix.IPAddr6)
-					fmt.Printf("        source_address:\n")
-					fmt.Printf("        prepend: 0\n")
-					fmt.Printf("        prefix_limit: %d\n", as.InfoPrefixes6)
-					fmt.Printf("        limit_exceeded_action: disable\n")
-					if password != "" {
-						fmt.Printf("        password: %s\n", password)
-					}
-
-					fmt.Printf("\n")
-				}
-
-			}
-		} else {
+		if err != nil {
 			fmt.Println("Error whilst getting IX")
+		}
+		
+		if strings.Contains(strings.ToLower(ix.Name), strings.ToLower(wantedIx)) {
+			fmt.Println("Making session for", as.Name, "on", ix.Name)
+			if ix.IPAddr4 != "" {
+				fmt.Println(ix.Name, "IPv4")
+				fmt.Printf("\n\n")
+				fmt.Printf("      %d:\n", as.ASN)
+				fmt.Printf("        description: %s\n", as.Name)
+				fmt.Printf("        neighbor: %s\n", ix.IPAddr4)
+				fmt.Printf("        source_address:\n")
+				fmt.Printf("        prepend: 0\n")
+				fmt.Printf("        prefix_limit: %d\n", as.InfoPrefixes4)
+				fmt.Printf("        limit_exceeded_action: disable\n")
+				if password != "" {
+					fmt.Printf("        password: %s\n", password)
+				}
+				fmt.Printf("\n")
+			}
+
+			if ix.IPAddr6 != "" {
+				fmt.Println(ix.Name, "IPv6")
+				fmt.Printf("\n\n")
+				fmt.Printf("      %d:\n", as.ASN)
+				fmt.Printf("        description: %s\n", as.Name)
+				fmt.Printf("        neighbor: %s\n", ix.IPAddr6)
+				fmt.Printf("        source_address:\n")
+				fmt.Printf("        prepend: 0\n")
+				fmt.Printf("        prefix_limit: %d\n", as.InfoPrefixes6)
+				fmt.Printf("        limit_exceeded_action: disable\n")
+				if password != "" {
+					fmt.Printf("        password: %s\n", password)
+				}
+
+				fmt.Printf("\n")
+			}
 		}
 	}
 }
