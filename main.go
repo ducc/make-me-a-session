@@ -43,6 +43,7 @@ func main() {
 		ix, err := api.GetNetworkInternetExchangeLANByID(ixId)
 		if err != nil {
 			fmt.Println("Error whilst getting IX")
+			continue
 		}
 		
 		if strings.Contains(strings.ToLower(ix.Name), strings.ToLower(wantedIx)) {
